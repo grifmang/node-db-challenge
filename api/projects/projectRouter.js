@@ -95,4 +95,21 @@ router.post('/tasks/:id', (req, res) => {
     }
 })
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    const task = await projects.getTaskById(id);
+    const resource = await projects.getResourceById(id);
+    const project = await projects.getProjectById(id);
+
+    if (task, resource, project) {
+        return res.status(200).json({
+            ...project,
+            tasks: task,
+            resources: resource
+        })
+    } else {
+        return res.status(500).json({ error: "Something went wrong." })
+    }
+})
+
 module.exports = router;

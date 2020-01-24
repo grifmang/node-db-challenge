@@ -17,7 +17,7 @@ function getResources() {
 }
 
 function getResourceById(id) {
-    return db('resources').where({ id }).first();
+    return db('project_resources').join('projects', 'projects.id', 'project_resources.project_id').join('resources', 'resources.id', 'project_resources.resource_id').where('project_resources.id', id).where('projects.id', id);
 }
 
 function getProjects() {
@@ -45,5 +45,5 @@ function getTasks() {
 }
 
 function getTaskById(id) {
-    return db('tasks').where({ id }).first();
+    return db('tasks').where({ id });
 }
